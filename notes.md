@@ -1,6 +1,6 @@
 # Important link
 
-`https://hackr.io/blog/java-cheat-sheet`
+https://hackr.io/blog/java-cheat-sheet
 * https://vishnuch.tech/java-8-cheat-sheet
 * https://philvarner.github.io/pages/modern-java.html
 * https://www.java8.org/#sorting-a-collection-using-lambda-comparator
