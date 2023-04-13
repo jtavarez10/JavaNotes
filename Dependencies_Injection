@@ -1,0 +1,48 @@
+/*
+En este ejemplo, tenemos una clase MyRepository que tiene un método getData que devuelve una cadena de texto. 
+También tenemos una clase MyService que utiliza inyección de dependencias por campo para inyectar una instancia de MyRepository y tiene un método 
+getData que llama al método getData de MyRepository.
+
+Finalmente, tenemos una clase AppConfig que utiliza @ComponentScan para escanear el paquete com.example en busca de clases 
+anotadas con @Component, @Service, @Repository, etc. 
+En el método main, creamos un contexto de aplicación de Spring utilizando AnnotationConfigApplicationContext, 
+obtenemos un bean de tipo MyService del contexto y llamamos a su método getData.
+Esto imprimirá en la consola la cadena de texto "data from repository".
+
+*/
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+@Repository
+public class MyRepository {
+    public String getData() {
+        return "data from repository";
+    }
+}
+
+@Service
+public class MyService {
+    @Autowired
+    private MyRepository myRepository;
+
+    public String getData() {
+        return myRepository.getData();
+    }
+}
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "com.example")
+public class AppConfig {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        MyService myService = context.getBean(MyService.class);
+        System.out.println(myService.getData());
+        context.close();
+    }
+}
